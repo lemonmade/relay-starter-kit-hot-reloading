@@ -16,7 +16,12 @@ let appServer;
 function startAppServer(callback) {
   // Serve the Relay app
   const compiler = webpack({
-    entry: path.resolve(__dirname, 'js', 'app.js'),
+    entry: [
+      'react-hot-loader/patch',
+      `webpack-dev-server/client?http://localhost:${APP_PORT}`,
+      'webpack/hot/dev-server',
+      path.resolve(__dirname, 'js', 'app.js')
+    ],
     module: {
       loaders: [
         {
@@ -26,9 +31,13 @@ function startAppServer(callback) {
         }
       ]
     },
-    output: {filename: '/app.js', path: '/', publicPath: '/js/'}
+    output: {filename: '/app.js', path: '/', publicPath: '/js/'},
+    plugins: [
+      new webpack.HotModuleReplacementPlugin()
+    ],
   });
   appServer = new WebpackDevServer(compiler, {
+    hot: true,
     contentBase: '/public/',
     proxy: {'/graphql': `http://localhost:${GRAPHQL_PORT}`},
     publicPath: '/js/',
