@@ -19,7 +19,7 @@ class Nested extends React.Component {
       <div>
         <ul>
           {this.props.viewer.widgets.edges.map(edge =>
-            <li key={edge.node.id}>{edge.node.name} (ID!!!!: {edge.node.id})</li>
+            <li key={edge.node.id}>{edge.node.name} (ID: {edge.node.id})</li>
           )}
         </ul>
       </div>

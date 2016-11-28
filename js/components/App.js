@@ -8,6 +8,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Widget lists</h1>
+        <p>Product: {this.props.product.name}</p>
         <Nested viewer={this.props.viewer} />
       </div>
     );
@@ -15,14 +16,16 @@ class App extends React.Component {
 }
 
 export default Relay.createContainer(App, {
-  initialVariables: {
-    
-  },
   fragments: {
     viewer: () => Relay.QL`
       fragment on User {
         ${Nested.getFragment('viewer')}
       }
     `,
+    product: () => Relay.QL`
+      fragment on Product {
+        name
+      }
+    `
   },
 });

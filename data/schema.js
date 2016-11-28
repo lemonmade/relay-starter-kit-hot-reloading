@@ -99,6 +99,15 @@ var widgetType = new GraphQLObjectType({
   interfaces: [nodeInterface],
 });
 
+var productType = new GraphQLObjectType({
+  name: 'Product',
+  fields: {
+    name: {
+      type: GraphQLString,
+    },
+  },
+});
+
 /**
  * Define your own connection types here
  */
@@ -114,6 +123,10 @@ var queryType = new GraphQLObjectType({
   fields: () => ({
     node: nodeField,
     // Add your own root fields here
+    product: {
+      type: productType,
+      resolve: () => ({name: 'Product'}),
+    },
     viewer: {
       type: userType,
       resolve: () => getViewer(),
