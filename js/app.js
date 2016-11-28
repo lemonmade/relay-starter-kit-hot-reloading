@@ -14,7 +14,7 @@ function render(CurrentApp) {
     <AppContainer>
       <Relay.Renderer
         environment={Relay.Store}
-        Container={App}
+        Container={CurrentApp}
         queryConfig={new AppHomeRoute()}
       />
     </AppContainer>,
